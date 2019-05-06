@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
-
+ 
 class app extends Component {
   state = {
     persons: [
@@ -46,11 +46,12 @@ class app extends Component {
   render() {
 
     const style = {
-      backgrooundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
-      cursor: 'pointer'
+      cursor: 'pointer',
     };
 
     let persons = null;
@@ -65,39 +66,33 @@ class app extends Component {
             age={person.age}
             key={person.id}
             changed={(event) => this.nameChangeHandler(event, person.id)} />
-          })}
-          {/* <Person 
-            name={this.state.persons[0].name} 
-            age={Math.floor(Math.random().age)} 
-          >
-          </Person>
-          <Person 
-            name={this.state.persons[1].name} 
-            age={this.state.persons[1].age}
-            click={this.deletePersonHandler.bind(this, 'Max!!')}
-            changed={this.nameChangeHandler}  
-          >
-            My hobbies are: cycling
-          </Person>
-          <Person 
-            name={this.state.persons[2].name} 
-            age={this.state.persons[2].age} >
-          </Person> */}
+          })}           
         </div> 
       );
+
+      style.backgroundColor = 'red';    
     }
+
+    let classes = [];    
+    if (this.state.persons.length <= 2) {
+      classes.push('red');
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push('bold');
+    }
+
     return (
-      <div className="App">
-        <h1>Hi i'm a react app</h1>
-        <p>This is really working</p>
-        <button 
-          style={style} 
-          onClick={this.togglePersonsHandle}>
-          Toggle persons
-        </button>
-        {persons}
-      </div>    
-    );
+         <div className="App">
+          <h1>Hi i'm a react app</h1>
+          <p className={classes.join(' ')}>This is really working</p>
+          <button 
+            style={style} 
+            onClick={this.togglePersonsHandle}>
+            Toggle persons
+          </button>
+          {persons}
+        </div>    
+     );
     // gets compiled to:
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
   }
