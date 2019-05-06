@@ -9,7 +9,8 @@ class app extends Component {
       { name: 'Manu', age: 33 },
       { name: 'Steffi', age: 25 }
     ],
-    otherState: 'some other value'
+    otherState: 'some other value',
+    showPersons: false  
   }
 
   switchNameHandler = (newName) => {
@@ -36,29 +37,39 @@ class app extends Component {
    
   }
 
+  togglePersonsHandle = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({showPersons: !doesShow});
+  }
+
   render() {
     return (
       <div className="App">
         <h1>Hi i'm a react app</h1>
         <p>This is really working</p>
-        <button onClick={() => this.switchNameHandler('Maximillian!!!!')}>Switch name</button>
-        <Person 
-          name={this.state.persons[0].name} 
-          age={Math.floor(Math.random() * 30)} 
-        >
-        </Person>
-        <Person 
-          name={this.state.persons[1].name} 
-          age={this.state.persons[1].age}
-          click={this.switchNameHandler.bind(this, 'Max!!')}
-          changed={this.nameChangeHandler}  
-        >
-          My hobbies are: cycling
-        </Person>
-        <Person 
-          name={this.state.persons[2].name} 
-          age={this.state.persons[2].age} >
-        </Person>
+        <button onClick={this.togglePersonsHandle}>Switch name</button>
+        {
+          this.state.showPersons === true ? 
+          <div >
+            <Person 
+              name={this.state.persons[0].name} 
+              age={Math.floor(Math.random() * 30)} 
+            >
+            </Person>
+            <Person 
+              name={this.state.persons[1].name} 
+              age={this.state.persons[1].age}
+              click={this.switchNameHandler.bind(this, 'Max!!')}
+              changed={this.nameChangeHandler}  
+            >
+              My hobbies are: cycling
+            </Person>
+            <Person 
+              name={this.state.persons[2].name} 
+              age={this.state.persons[2].age} >
+            </Person>
+          </div> : null
+      }  
       </div>    
     );
     // gets compiled to:
